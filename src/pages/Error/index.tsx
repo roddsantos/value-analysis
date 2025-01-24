@@ -1,3 +1,4 @@
+import { Button } from 'components/Button';
 import Container from 'components/Container';
 import { useNavigation } from 'utils/navigation';
 
@@ -19,6 +20,11 @@ export default function ErrorPage({ code }: ErrorPageInterface) {
   return (
     <Container>
       <h1>page not found</h1>
+      <Button
+        types="primary"
+        onClick={() => onPressNavigation()}
+        title="Voltar"
+      />
     </Container>
   );
 }
