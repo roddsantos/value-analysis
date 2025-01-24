@@ -4,6 +4,7 @@ import * as S from './styles';
 import { ProductsTable } from './components/ProductsTable';
 import { DataInfo } from './components/DataInfo';
 import { BreadcrumbApp } from 'components/Breadcrumb';
+import { Attachments } from './components/Attachments';
 
 export const ValueAnalysisPage = () => {
   return (
@@ -12,6 +13,7 @@ export const ValueAnalysisPage = () => {
       <S.StyledTitle>Análise de Valores</S.StyledTitle>
       <DataInfo />
       <ProductsTable />
+      <Attachments />
       <S.ButtonsContainer>
         <Button types="secondary" title="Cancelar" />
         <Button types="third" title="Salvar Rascunho" />

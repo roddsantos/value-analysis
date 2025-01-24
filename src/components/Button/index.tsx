@@ -4,7 +4,14 @@ import * as S from './styles';
 interface ButtonType extends ButtonProps {
   types?: 'primary' | 'secondary' | 'third';
 }
-export function Button({ title, onClick, type, types, ...rest }: ButtonType) {
+export function Button({
+  title,
+  onClick,
+  type,
+  types,
+  children,
+  ...rest
+}: ButtonType) {
   return (
     <S.ButtonContainer
       type={type}
@@ -12,7 +19,7 @@ export function Button({ title, onClick, type, types, ...rest }: ButtonType) {
       onClick={(e) => !!onClick && onClick(e)}
       {...rest}
     >
-      {title}
+      {children || title}
     </S.ButtonContainer>
   );
 }
