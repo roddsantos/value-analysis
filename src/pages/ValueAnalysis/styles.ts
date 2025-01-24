@@ -7,3 +7,8 @@ export const ButtonsContainer = styled.div`
   width: max-content;
   margin: 26px 0px 0px auto;
 `;
+
+export const StyledTitle = styled.h1`
+  margin-left: 42px;
+  margin-bottom: 16.5px;
+`;
