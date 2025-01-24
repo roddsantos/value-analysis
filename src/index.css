@@ -1,5 +1,16 @@
 * {
   --primary: #189fe3;
+  --secondary: #606062;
+  &::-webkit-scrollbar {
+    width: 14px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #ffffff;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #6b6b6b;
+    height: auto;
+  }
 }
 
 body {
@@ -12,11 +23,11 @@ body {
 }
 
 h1 {
-  font: normal normal bold 20px/23px Helvetica;
+  font: normal normal bold 1.25rem/1.4375rem Helvetica;
 }
 
-h3 {
-  font: normal normal bold 15px/17px Helvetica;
+h4 {
+  font: normal normal bold 0.9375rem/1.0625rem Helvetica;
   color: #707070;
 }
 

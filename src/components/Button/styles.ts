@@ -23,7 +23,7 @@ export const ButtonContainer = styled(Button)<ButtonType>`
           : '#4E9DDD'};
     `}
     padding: 12.5px;
-    font: normal normal bold 13px Helvetica;
+    font: normal normal bold 0.8125rem Helvetica;
     border-radius: 3px;
     box-shadow: none;
     border-style: solid;

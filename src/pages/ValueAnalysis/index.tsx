@@ -3,10 +3,12 @@ import Container from 'components/Container';
 import * as S from './styles';
 import { ProductsTable } from './components/ProductsTable';
 import { DataInfo } from './components/DataInfo';
+import { BreadcrumbApp } from 'components/Breadcrumb';
 
 export const ValueAnalysisPage = () => {
   return (
     <Container>
+      <BreadcrumbApp />
       <S.StyledTitle>Análise de Valores</S.StyledTitle>
       <DataInfo />
       <ProductsTable />

@@ -125,30 +125,26 @@ export const ProductsTable = () => {
         title="Editar Valores"
         description="Informe os valores repassados pelos fornecedores"
       />
-      <S.StyledDataGrid
-        disableColumnSorting
-        disableColumnMenu
-        disableColumnResize
-        hideFooter
-        getRowHeight={() => 'auto'}
-        rows={data}
-        columns={columns}
-        sx={{
-          width: '100%',
-          '& .hideRightSeparator > .MuiDataGrid-columnSeparator': {
-            display: 'none',
-          },
-          '&, [class^=MuiDataGrid]': {
-            borderRight: 'none',
-            borderLeft: 'none',
-          },
-          '& .MuiDataGrid-virtualScroller::-webkit-scrollbar': {
-            overflowY: 'hidden',
-          },
-        }}
-        processRowUpdate={processRowUpdate}
-        onCellEditStop={(data) => console.log('DATA: ', data)}
-      />
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <S.StyledDataGrid
+          disableColumnSorting
+          disableColumnMenu
+          disableColumnResize
+          hideFooter
+          getRowHeight={() => 'auto'}
+          rows={data}
+          columns={columns}
+          sx={{
+            width: '100%',
+            '& .hideRightSeparator > .MuiDataGrid-columnSeparator': {
+              display: 'none',
+            },
+          }}
+          processRowUpdate={processRowUpdate}
+          onCellEditStop={(data) => console.log('DATA: ', data)}
+        />
+      </div>
+      <S.StyledDivisor />
     </section>
   );
 };
