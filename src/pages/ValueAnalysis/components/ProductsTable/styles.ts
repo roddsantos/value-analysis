@@ -13,24 +13,13 @@ export const StyledDivisor = styled.div`
   margin-bottom: 20.5px;
 `;
 
-export const StyledSectionDescription = styled.p`
-  font: normal normal normal 12px/14px Helvetica;
-  color: #939393;
-  margin: 0px 0px 26.38px 39px;
-`;
-
-export const StyledSectionTitle = styled.h3`
-  color: #939393;
-  margin: 0px 0px 7.62px 26px;
-`;
-
 export const CustomHeader = styled.div<CustomHeaderType>`
   ${({ left, right }) => css`
     border-radius: ${left ? '4px' : '0px'} ${right ? '4px' : '0px'}
       ${right ? '4px' : '0px'} ${left ? '4px' : '0px'};
   `}
   font: normal normal medium 12px/14px Helvetica Neue !important;
-  background-color: #606062;
+  background-color: var(--secondary);
   padding: 10px;
   color: #ffffff;
   width: 200px;
@@ -46,9 +35,12 @@ export const CustomRow = styled.div`
 `;
 
 export const StyledDataGrid = styled(DataGrid)`
+  height: auto !important;
   &.MuiDataGrid-root {
     height: auto !important;
     overflow-y: hidden;
+    border-color: var(--secondary);
+    border: none;
   }
   & .MuiDataGrid-virtualScrollerRenderZone {
     overflow-y: hidden !important;
@@ -58,19 +50,17 @@ export const StyledDataGrid = styled(DataGrid)`
   .MuiDataGrid-cellEmpty,
   .MuiDataGrid-scrollbarFiller,
   .MuiDataGrid-filler {
-    display: none !important;
+    display: none;
   }
   & .MuiDataGrid-columnHeader {
     padding: 0px !important;
     height: 42px !important;
   }
   & .MuiDataGrid-row {
-    max-height: 37.21px !important;
-    min-height: 37.21px !important;
-    width: 100% !important;
+    height: 37.21px;
+    width: 100%;
   }
   & .MuiDataGrid-cell {
-    max-height: 37.21px !important;
-    min-height: 37.21px !important;
+    height: 37.21px;
   }
 `;

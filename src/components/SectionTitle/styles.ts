@@ -13,12 +13,12 @@ export const StyledDivisor = styled.div`
 `;
 
 export const StyledSectionDescription = styled.p`
-  font: normal normal normal 12px/14px Helvetica;
+  font: normal normal normal 0.75rem/0.875rem Helvetica;
   color: #939393;
   margin: 0px 0px 0px 39px;
 `;
 
-export const StyledSectionTitle = styled.h3`
+export const StyledSectionTitle = styled.h4`
   color: #939393;
   margin: 0px 0px 7.62px 26px;
 `;

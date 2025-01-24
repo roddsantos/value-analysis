@@ -3,14 +3,15 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-
-  width: 100%;
+  margin: 0px auto;
+  max-width: 1396px;
   height: fit-content;
+  margin-top: 64px;
 `;
 
 export const Content = styled.div`
-  margin-top: 50px;
+  margin-top: 17.62px;
 
-  width: 1396px;
+  width: 100%;
   max-width: 95%;
 `;
