@@ -4,14 +4,17 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   margin: 0px auto;
-  max-width: 1396px;
   height: fit-content;
   margin-top: 64px;
+  margin-left: 66px;
+  width: calc(100% - 66px);
 `;
 
 export const Content = styled.div`
   margin-top: 17.62px;
-
-  width: 100%;
-  max-width: 95%;
+  width: 1396px;
+  padding: 0px 10px;
+  @media screen and (max-width: 1455px) {
+    width: 100%;
+  }
 `;
