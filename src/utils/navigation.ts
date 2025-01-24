@@ -8,7 +8,7 @@ export const useNavigation = () => {
     const pageToGoBack = altPath || (window.history.state.idx === 0 ? '/' : -1);
     window.localStorage.setItem(
       'lastPage',
-      pageToGoBack === -1 ? window.location.pathname : pageToGoBack,
+      pageToGoBack === -1 ? window.location.pathname : pageToGoBack
     );
     if (pageToGoBack === -1) navigate(pageToGoBack);
     else navigate(pageToGoBack, { replace: true });

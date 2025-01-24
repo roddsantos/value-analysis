@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.4.1",
+    "@mui/x-data-grid": "^7.24.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "cra-template-typescript": "1.2.0",
@@ -40,6 +44,7 @@
     "@eslint/js": "^9.18.0",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.0.1",
+    "eslint-import-resolver-typescript": "^3.7.0",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react": "^7.37.4",
     "globals": "^15.14.0",
