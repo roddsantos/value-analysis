@@ -2,11 +2,13 @@ import { Button } from 'components/Button';
 import Container from 'components/Container';
 import * as S from './styles';
 import { ProductsTable } from './components/ProductsTable';
+import { DataInfo } from './components/DataInfo';
 
 export const ValueAnalysisPage = () => {
   return (
     <Container>
-      <h1>Análise de Valores</h1>
+      <S.StyledTitle>Análise de Valores</S.StyledTitle>
+      <DataInfo />
       <ProductsTable />
       <S.ButtonsContainer>
         <Button types="secondary" title="Cancelar" />

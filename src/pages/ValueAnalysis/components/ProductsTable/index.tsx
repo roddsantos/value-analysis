@@ -3,6 +3,7 @@ import { PRODUCTS } from 'utils/mocks/products';
 import * as S from './styles';
 import { useEffect, useState } from 'react';
 import { ProductsType } from 'types/products';
+import { SectionTitle } from 'components/SectionTitle';
 
 export const ProductsTable = () => {
   const [data, setData] = useState<ProductsType[]>([]);
@@ -120,11 +121,10 @@ export const ProductsTable = () => {
 
   return (
     <section>
-      <S.StyledDivisor />
-      <S.StyledSectionTitle>Editar Valores</S.StyledSectionTitle>
-      <S.StyledSectionDescription>
-        Informe os valores repassados pelos fornecedores
-      </S.StyledSectionDescription>
+      <SectionTitle
+        title="Editar Valores"
+        description="Informe os valores repassados pelos fornecedores"
+      />
       <S.StyledDataGrid
         disableColumnSorting
         disableColumnMenu
