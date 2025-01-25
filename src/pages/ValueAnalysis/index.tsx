@@ -8,9 +8,11 @@ import { Attachments } from './components/Attachments';
 import { SelectedProviders } from './components/SelectedProviders/indext';
 import { ProductsType } from 'types/products';
 import { useState } from 'react';
+import { CustomDialog } from 'components/CustomDialog';
 
 export const ValueAnalysisPage = () => {
   const [data, setData] = useState<ProductsType[]>([]);
+  const [open, setOpen] = useState(false);
 
   return (
     <Container>
@@ -24,8 +26,37 @@ export const ValueAnalysisPage = () => {
       <S.ButtonsContainer>
         <Button types="secondary" title="Cancelar" />
         <Button types="third" title="Salvar Rascunho" />
-        <Button types="primary" title="Finalizar" />
+        <Button
+          types="primary"
+          title="Finalizar"
+          onClick={() => setOpen(true)}
+        />
       </S.ButtonsContainer>
+      {open && (
+        <CustomDialog
+          onClose={() => setOpen(false)}
+          maxWidth="xl"
+          open={open}
+          title="Enviar cotação"
+        >
+          <S.StyledDialogText>
+            Deseja enviar agora como pedido para o Protheus?
+          </S.StyledDialogText>
+          <S.DialogButtonsContainer>
+            <Button
+              types="secondary"
+              title="Retornar a edição"
+              onClick={() => setOpen(false)}
+            />
+            <Button types="third" title="Reprovar" />
+            <Button
+              types="primary"
+              title="Aprovar"
+              onClick={() => setOpen(false)}
+            />
+          </S.DialogButtonsContainer>
+        </CustomDialog>
+      )}
     </Container>
   );
 };
