@@ -16,6 +16,7 @@ export function Button({
     <S.ButtonContainer
       type={type}
       types={types}
+      disabled={rest.disabled}
       onClick={(e) => !!onClick && onClick(e)}
       {...rest}
     >

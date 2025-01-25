@@ -1,6 +1,5 @@
 import { Button } from 'components/Button';
 import Container from 'components/Container';
-import { SnackbarCloseReason } from '@mui/material/Snackbar';
 import * as S from './styles';
 import { ProductsTable } from './components/ProductsTable';
 import { DataInfo } from './components/DataInfo';
@@ -10,26 +9,41 @@ import { SelectedProviders } from './components/SelectedProviders/indext';
 import { ProductsType } from 'types/products';
 import { useState } from 'react';
 import { CustomDialog } from 'components/CustomDialog';
+import { RejectOrderDialog } from './components/RejectOrderDialog';
+import { CustomDialogProps, CustomSnackbar } from 'components/CustomSnackbar';
 
 export const ValueAnalysisPage = () => {
   const [data, setData] = useState<ProductsType[]>([]);
   const [open, setOpen] = useState(false);
-  const [openSnack, setOpenSnack] = useState(false);
-
-  const handleCloseSnack = (
-    event?: React.SyntheticEvent | Event,
-    reason?: SnackbarCloseReason
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpenSnack(false);
-  };
+  const [openRejected, setOpenRejected] = useState(false);
+  const [snack, setSnack] = useState<CustomDialogProps>({
+    isOpen: false,
+    message: '',
+    variant: undefined,
+  });
 
   const handleApprove = () => {
     setOpen(false);
-    setOpenSnack(true);
+    setSnack({
+      isOpen: true,
+      variant: 'success',
+      message: 'Criado Pedido para o Protheus!',
+    });
+  };
+
+  const handleReject = () => {
+    setOpen(false);
+    setOpenRejected(true);
+  };
+
+  const handleRejectSuccessful = (obj: any) => {
+    console.log(obj);
+    setOpenRejected(false);
+    setSnack({
+      isOpen: true,
+      variant: 'success',
+      message: 'Pedido rejeitado com sucesso!',
+    });
   };
 
   return (
@@ -66,7 +80,11 @@ export const ValueAnalysisPage = () => {
               title="Retornar a edição"
               onClick={() => setOpen(false)}
             />
-            <Button types="third" title="Reprovar" />
+            <Button
+              types="third"
+              title="Reprovar"
+              onClick={() => handleReject()}
+            />
             <Button
               types="primary"
               title="Aprovar"
@@ -75,26 +93,18 @@ export const ValueAnalysisPage = () => {
           </S.DialogButtonsContainer>
         </CustomDialog>
       )}
-      {openSnack && (
-        <S.StyledSnackbar
-          open={openSnack}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-          onClose={handleCloseSnack}
-          autoHideDuration={4000}
-        >
-          <div>
-            <i className="bx bx-check"></i>
-            <p>Criado Pedido para o Protheus!</p>
-            <i
-              onClick={() => setOpenSnack(false)}
-              style={{ cursor: 'pointer' }}
-              className="bx bx-x"
-            ></i>
-          </div>
-        </S.StyledSnackbar>
+      {snack.isOpen && (
+        <CustomSnackbar
+          {...snack}
+          onClose={() => setSnack((state) => ({ ...state, isOpen: false }))}
+        />
+      )}
+      {openRejected && (
+        <RejectOrderDialog
+          open={openRejected}
+          setOpen={setOpenRejected}
+          handleConfirm={(obj) => handleRejectSuccessful(obj)}
+        />
       )}
     </Container>
   );

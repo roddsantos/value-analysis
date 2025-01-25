@@ -2,23 +2,34 @@ import { TextField } from '@mui/material';
 import styled, { css } from 'styled-components';
 
 type StyledTextfieldType = {
-  width: number;
+  width?: number | string;
 };
 
 export const StyledContainer = styled.section`
   width: 100%;
-  margin: 0px 0px 23.45px 17px;
-  div + div {
-    margin-left: 18px;
-    color: #707070;
+  margin: 26.5px 0px 23.45px;
+  & p {
+    font: normal 14px Helvetica;
   }
 `;
 
 export const StyledTextfield = styled(TextField)<StyledTextfieldType>`
+  &::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  display: flex;
+  justify-content: space-between;
   ${({ width }) => css`
-    width: ${width + 'px'};
+    width: ${width
+      ? typeof width === 'string'
+        ? width
+        : width + 'px'
+      : '100%'};
   `}
   &.MuiFormControl-root.MuiTextField-root {
+    margin: 0px 13.59px 11.5px 0px;
     & .MuiInputBase-root.MuiOutlinedInput-root {
       min-height: 51px;
       padding: 0px 0px 0px 14px;
@@ -40,4 +51,12 @@ export const StyledStartAdornment = styled.p`
   margin-right: 9.93px;
   color: #707070;
   font: normal 14px/16px Helvetica;
+  width: max-content;
+`;
+
+export const ButtonsContainer = styled.div`
+  padding: 0px 26px 40px;
+  button + button {
+    margin-left: 18px;
+  }
 `;
