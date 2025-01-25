@@ -1,13 +1,25 @@
-import { Dialog, DialogContent, DialogProps } from '@mui/material';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogProps,
+  SxProps,
+  Theme,
+} from '@mui/material';
 import * as S from './styles';
 
-type CustomDialogType = DialogProps;
+type CustomDialogType = {
+  actionsStyle?: SxProps<Theme>;
+  footer?: React.ReactNode;
+} & DialogProps;
 
 export const CustomDialog = ({
   children,
   open,
   title,
   maxWidth,
+  actionsStyle,
+  footer,
   ...rest
 }: CustomDialogType) => {
   return (
@@ -17,6 +29,7 @@ export const CustomDialog = ({
         <S.StyledTitleDivisor />
       </S.StyledTitle>
       <DialogContent>{children}</DialogContent>
+      {!!footer && <DialogActions sx={actionsStyle}>{footer}</DialogActions>}
     </Dialog>
   );
 };

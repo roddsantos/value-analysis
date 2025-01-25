@@ -20,6 +20,9 @@ export const DataInfo = () => {
         multiline
         disabled
         slotProps={{
+          htmlInput: {
+            maxLength: 100,
+          },
           input: {
             startAdornment: (
               <S.StyledStartAdornment>Descrição</S.StyledStartAdornment>
@@ -32,6 +35,9 @@ export const DataInfo = () => {
         disabled
         width={246}
         slotProps={{
+          htmlInput: {
+            maxLength: 50,
+          },
           input: {
             startAdornment: (
               <S.StyledStartAdornment>Type:</S.StyledStartAdornment>

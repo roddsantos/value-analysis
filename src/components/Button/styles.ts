@@ -3,19 +3,24 @@ import styled, { css } from 'styled-components';
 
 type ButtonType = {
   types?: 'primary' | 'secondary' | 'third';
+  disabled?: boolean;
 };
 
 export const ButtonContainer = styled(Button)<ButtonType>`
   &.MuiButtonBase-root {
-    ${({ types }) => css`
-      background-color: ${types !== 'primary'
-        ? 'transparent'
-        : 'var(--primary)'} !important;
-      color: ${types === 'primary'
-        ? '#F7F7F7'
-        : types === 'secondary'
-          ? '#707070'
-          : '#189FE3'} !important;
+    ${({ types, disabled }) => css`
+      background-color: ${disabled
+        ? '#189fe355'
+        : types !== 'primary'
+          ? 'transparent'
+          : 'var(--primary)'} !important;
+      color: ${disabled
+        ? '#707070'
+        : types === 'primary'
+          ? '#F7F7F7'
+          : types === 'secondary'
+            ? '#707070'
+            : '#189FE3'} !important;
       border-color: ${types === 'primary'
         ? '#189FE3'
         : types === 'secondary'
