@@ -1,5 +1,6 @@
 import { Button } from 'components/Button';
 import Container from 'components/Container';
+import { SnackbarCloseReason } from '@mui/material/Snackbar';
 import * as S from './styles';
 import { ProductsTable } from './components/ProductsTable';
 import { DataInfo } from './components/DataInfo';
@@ -13,6 +14,23 @@ import { CustomDialog } from 'components/CustomDialog';
 export const ValueAnalysisPage = () => {
   const [data, setData] = useState<ProductsType[]>([]);
   const [open, setOpen] = useState(false);
+  const [openSnack, setOpenSnack] = useState(false);
+
+  const handleCloseSnack = (
+    event?: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+
+  const handleApprove = () => {
+    setOpen(false);
+    setOpenSnack(true);
+  };
 
   return (
     <Container>
@@ -52,10 +70,31 @@ export const ValueAnalysisPage = () => {
             <Button
               types="primary"
               title="Aprovar"
-              onClick={() => setOpen(false)}
+              onClick={() => handleApprove()}
             />
           </S.DialogButtonsContainer>
         </CustomDialog>
+      )}
+      {openSnack && (
+        <S.StyledSnackbar
+          open={openSnack}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          onClose={handleCloseSnack}
+          autoHideDuration={4000}
+        >
+          <div>
+            <i className="bx bx-check"></i>
+            <p>Criado Pedido para o Protheus!</p>
+            <i
+              onClick={() => setOpenSnack(false)}
+              style={{ cursor: 'pointer' }}
+              className="bx bx-x"
+            ></i>
+          </div>
+        </S.StyledSnackbar>
       )}
     </Container>
   );
