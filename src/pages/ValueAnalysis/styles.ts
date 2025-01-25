@@ -1,3 +1,4 @@
+import { Snackbar } from '@mui/material';
 import styled from 'styled-components';
 
 export const ButtonsContainer = styled.div`
@@ -35,5 +36,31 @@ export const DialogButtonsContainer = styled.div`
   width: auto;
   button + button {
     margin-left: 18px;
+  }
+`;
+
+export const StyledSnackbar = styled(Snackbar)`
+  width: 600px;
+  background-color: #e8f7f0;
+  color: #53a77f;
+  border-left: 6px solid #53a77f;
+  padding: 20px;
+  border-radius: 10px;
+  & div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  & i {
+    font-size: 32px;
+    width: 10%;
+    margin: auto;
+  }
+  & p {
+    margin: 0px;
+    font: normal 16px/33px Helvetica;
+    width: 80%;
   }
 `;
