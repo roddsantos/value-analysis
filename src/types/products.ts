@@ -8,5 +8,5 @@ export type ProductsType = {
   provider2: number | null;
   provider3: number | null;
   provider4: number | null;
-  selectedProvider: 1 | 2 | 3 | 4 | null;
+  selectedProvider: string | null;
 };

@@ -5,6 +5,10 @@ type CustomHeaderType = {
   right?: boolean;
 };
 
+type CustomRowType = {
+  selected?: boolean;
+};
+
 export const CustomHeader = styled.div<CustomHeaderType>`
   ${({ left, right }) => css`
     border-radius: ${left ? '4px' : '0px'} ${right ? '4px' : '0px'}
@@ -17,11 +21,14 @@ export const CustomHeader = styled.div<CustomHeaderType>`
   width: 200px;
 `;
 
-export const CustomRow = styled.div`
-  background-color: transparent;
+export const CustomRow = styled.div<CustomRowType>`
   color: #000000;
-  max-height: 37.21px !important;
-  min-height: 37.21px !important;
+  height: 37.21px !important;
+  width: 100%;
   display: flex;
   align-items: center;
+  padding: 0px 10px;
+  ${({ selected }) => css`
+    background-color: ${selected ? '#189fe366' : 'transparent'};
+  `}
 `;
