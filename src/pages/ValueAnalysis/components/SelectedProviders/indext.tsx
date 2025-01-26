@@ -1,5 +1,5 @@
 import { SectionTitle } from 'components/SectionTitle';
-import { ProductsType } from 'types/products';
+import { ProductsType } from 'types/services';
 import * as S from './styles';
 import {
   GridCellParams,

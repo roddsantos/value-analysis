@@ -7,7 +7,7 @@ export const StyledTitle = styled(DialogTitle)`
   }
 `;
 
-export const StyledTitleText = styled.h2`
+export const StyledTitleText = styled.p`
   font: bold 17px Helvetica;
   color: #707070;
   margin: 35px 56.37px 0px;
