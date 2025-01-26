@@ -8,6 +8,7 @@ import {
   GridValidRowModel,
 } from '@mui/x-data-grid';
 import { CustomDataGrid } from 'components/DataGrid';
+import { Tooltip } from '@mui/material';
 
 type ProductsTableType = {
   data: ProductsType[];
@@ -41,13 +42,17 @@ export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
     {
       field: 'description',
       headerName: 'Descrição',
-      flex: 1,
       editable: false,
       align: 'left',
       headerAlign: 'left',
       renderHeader: () => <S.CustomHeader>Descrição</S.CustomHeader>,
-      renderCell: (data) => <S.CustomRow>{data.value}</S.CustomRow>,
+      renderCell: (data) => (
+        <Tooltip placement="top" title={data.value}>
+          <S.CustomRow>{data.value}</S.CustomRow>
+        </Tooltip>
+      ),
       headerClassName: 'hideRightSeparator',
+      width: 300,
     },
     {
       field: 'quantity',
@@ -58,7 +63,7 @@ export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
       renderHeader: () => <S.CustomHeader>Quantidade</S.CustomHeader>,
       renderCell: (data) => <S.CustomRow>{data.value}</S.CustomRow>,
       headerClassName: 'hideRightSeparator',
-      flex: 1,
+      width: 100,
     },
     {
       field: 'provider1',
@@ -70,7 +75,7 @@ export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
       renderHeader: () => <S.CustomHeader>Fornecedor 1</S.CustomHeader>,
       renderCell: (data) => (
         <S.CustomRow selected={data.row['selectedProvider'] === 'provider1'}>
-          {data.value}
+          {data.value ? 'R$ ' + data.value : ''}
         </S.CustomRow>
       ),
       headerClassName: 'hideRightSeparator',
@@ -86,7 +91,7 @@ export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
       renderHeader: () => <S.CustomHeader>Fornecedor 2</S.CustomHeader>,
       renderCell: (data) => (
         <S.CustomRow selected={data.row['selectedProvider'] === 'provider2'}>
-          {data.value}
+          {data.value ? 'R$ ' + data.value : ''}
         </S.CustomRow>
       ),
       headerClassName: 'hideRightSeparator',
@@ -102,7 +107,7 @@ export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
       renderHeader: () => <S.CustomHeader>Fornecedor 3</S.CustomHeader>,
       renderCell: (data) => (
         <S.CustomRow selected={data.row['selectedProvider'] === 'provider3'}>
-          {data.value}
+          {data.value ? 'R$ ' + data.value : ''}
         </S.CustomRow>
       ),
       headerClassName: 'hideRightSeparator',
@@ -113,13 +118,12 @@ export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
       headerName: 'Fornecedor 4',
       type: 'number',
       editable: true,
-      width: 180,
       align: 'left',
       headerAlign: 'left',
       renderHeader: () => <S.CustomHeader right>Fornecedor 4</S.CustomHeader>,
       renderCell: (data) => (
         <S.CustomRow selected={data.row['selectedProvider'] === 'provider4'}>
-          {data.value}
+          {data.value ? 'R$ ' + data.value : ''}
         </S.CustomRow>
       ),
       headerClassName: 'hideRightSeparator',

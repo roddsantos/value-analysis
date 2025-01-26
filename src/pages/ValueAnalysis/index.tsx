@@ -7,12 +7,16 @@ import { BreadcrumbApp } from 'components/Breadcrumb';
 import { Attachments } from './components/Attachments';
 import { SelectedProviders } from './components/SelectedProviders/indext';
 import { ProductsType } from 'types/products';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CustomDialog } from 'components/CustomDialog';
 import { RejectOrderDialog } from './components/RejectOrderDialog';
 import { CustomDialogProps, CustomSnackbar } from 'components/CustomSnackbar';
+import { useProductsServices } from 'services/products';
+import { closeSnack, decrescent, errorSnack, successSnack } from 'utils/data';
 
 export const ValueAnalysisPage = () => {
+  const { productsList } = useProductsServices();
+
   const [data, setData] = useState<ProductsType[]>([]);
   const [open, setOpen] = useState(false);
   const [openRejected, setOpenRejected] = useState(false);
@@ -24,11 +28,7 @@ export const ValueAnalysisPage = () => {
 
   const handleApprove = () => {
     setOpen(false);
-    setSnack({
-      isOpen: true,
-      variant: 'success',
-      message: 'Criado Pedido para o Protheus!',
-    });
+    setSnack(successSnack('Criado Pedido para o Protheus!'));
   };
 
   const handleReject = () => {
@@ -39,12 +39,21 @@ export const ValueAnalysisPage = () => {
   const handleRejectSuccessful = (obj: any) => {
     console.log(obj);
     setOpenRejected(false);
-    setSnack({
-      isOpen: true,
-      variant: 'success',
-      message: 'Pedido rejeitado com sucesso!',
-    });
+    setSnack(successSnack('Pedido rejeitado com sucesso!'));
   };
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const products = await productsList();
+        setData(products.data.sort((a, b) => decrescent(a, b, 'code')));
+      } catch (error) {
+        setData([]);
+        setSnack(errorSnack('Erro ao obter os produtos'));
+      }
+    };
+    getProducts();
+  }, []);
 
   return (
     <Container>
@@ -94,10 +103,7 @@ export const ValueAnalysisPage = () => {
         </CustomDialog>
       )}
       {snack.isOpen && (
-        <CustomSnackbar
-          {...snack}
-          onClose={() => setSnack((state) => ({ ...state, isOpen: false }))}
-        />
+        <CustomSnackbar {...snack} onClose={() => setSnack(closeSnack())} />
       )}
       {openRejected && (
         <RejectOrderDialog

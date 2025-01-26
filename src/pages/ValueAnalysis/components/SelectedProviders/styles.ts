@@ -18,17 +18,21 @@ export const CustomHeader = styled.div<CustomHeaderType>`
   background-color: var(--secondary);
   padding: 10px;
   color: #ffffff;
-  width: 200px;
+  width: 300px;
 `;
 
 export const CustomRow = styled.div<CustomRowType>`
   color: #000000;
   height: 37.21px !important;
   width: 100%;
-  display: flex;
   align-items: center;
   padding: 0px 10px;
   ${({ selected }) => css`
     background-color: ${selected ? '#189fe366' : 'transparent'};
   `}
+  display: block;
+  margin-top: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;

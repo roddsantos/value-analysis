@@ -14,14 +14,18 @@ export const CustomHeader = styled.div<CustomHeaderType>`
   background-color: var(--secondary);
   padding: 10px;
   color: #ffffff;
-  width: 200px;
+  width: 300px;
 `;
 
 export const CustomRow = styled.div`
   background-color: transparent;
   color: #000000;
-  max-height: 37.21px !important;
-  min-height: 37.21px !important;
-  display: flex;
+  height: 37.21px !important;
+  display: block;
+  margin-top: 8px;
   align-items: center;
+  padding: 0px 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
