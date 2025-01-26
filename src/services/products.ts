@@ -1,4 +1,4 @@
-import { ProductsType } from 'types/products';
+import { ProductsType } from 'types/services';
 import { useAxios } from './api';
 
 export const useProductsServices = () => {

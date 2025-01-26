@@ -6,16 +6,18 @@ import { DataInfo } from './components/DataInfo';
 import { BreadcrumbApp } from 'components/Breadcrumb';
 import { Attachments } from './components/Attachments';
 import { SelectedProviders } from './components/SelectedProviders/indext';
-import { ProductsType } from 'types/products';
+import { OrderType, ProductsType } from 'types/services';
 import { useEffect, useState } from 'react';
 import { CustomDialog } from 'components/CustomDialog';
 import { RejectOrderDialog } from './components/RejectOrderDialog';
 import { CustomDialogProps, CustomSnackbar } from 'components/CustomSnackbar';
 import { useProductsServices } from 'services/products';
 import { closeSnack, decrescent, errorSnack, successSnack } from 'utils/data';
+import { useOrdersServices } from 'services/orders';
 
 export const ValueAnalysisPage = () => {
   const { productsList } = useProductsServices();
+  const { createOrder } = useOrdersServices();
 
   const [data, setData] = useState<ProductsType[]>([]);
   const [open, setOpen] = useState(false);
@@ -26,9 +28,32 @@ export const ValueAnalysisPage = () => {
     variant: undefined,
   });
 
-  const handleApprove = () => {
-    setOpen(false);
-    setSnack(successSnack('Criado Pedido para o Protheus!'));
+  const [code, setCode] = useState('');
+  const [description, setDescription] = useState('');
+  const [type, setType] = useState('');
+  const dataInfoProps = {
+    code,
+    setCode,
+    description,
+    setDescription,
+    type,
+    setType,
+  };
+
+  const handleApprove = async () => {
+    try {
+      await createOrder({
+        code: code.trim(),
+        description: description.trim(),
+        type: type.trim(),
+        justification: '',
+        status: 'approved',
+      });
+      setSnack(successSnack('Criado Pedido para o Protheus!'));
+      setOpen(false);
+    } catch (error) {
+      setSnack(errorSnack('Erro ao criar pedido'));
+    }
   };
 
   const handleReject = () => {
@@ -36,10 +61,17 @@ export const ValueAnalysisPage = () => {
     setOpenRejected(true);
   };
 
-  const handleRejectSuccessful = (obj: any) => {
-    console.log(obj);
+  const handleRejectSuccessful = (order: OrderType) => {
+    setCode(order.code);
+    setType(order.type);
+    setDescription(order.description);
     setOpenRejected(false);
     setSnack(successSnack('Pedido rejeitado com sucesso!'));
+  };
+
+  const handleRejectFailed = (obj: any) => {
+    console.log(obj);
+    setSnack(errorSnack('Erro ao rejeitar pedido'));
   };
 
   useEffect(() => {
@@ -59,7 +91,7 @@ export const ValueAnalysisPage = () => {
     <Container>
       <BreadcrumbApp />
       <S.StyledTitle>Análise de Valores</S.StyledTitle>
-      <DataInfo />
+      <DataInfo {...dataInfoProps} />
       <ProductsTable data={data} setData={setData} />
       <Attachments />
       <SelectedProviders data={data} setData={setData} />
@@ -109,7 +141,13 @@ export const ValueAnalysisPage = () => {
         <RejectOrderDialog
           open={openRejected}
           setOpen={setOpenRejected}
-          handleConfirm={(obj) => handleRejectSuccessful(obj)}
+          handleConfirm={(order) => handleRejectSuccessful(order)}
+          handleError={(err) => handleRejectFailed(err)}
+          data={{
+            code,
+            description,
+            type,
+          }}
         />
       )}
     </Container>

@@ -1,6 +1,6 @@
 import { GridColDef, GridValidRowModel } from '@mui/x-data-grid';
 import * as S from './styles';
-import { ProductsType } from 'types/products';
+import { ProductsType } from 'types/services';
 import { SectionTitle } from 'components/SectionTitle';
 import { CustomDataGrid } from 'components/DataGrid';
 import { Tooltip } from '@mui/material';
