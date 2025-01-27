@@ -30,9 +30,9 @@ export const CustomRow = styled.div<CustomRowType>`
   ${({ selected }) => css`
     background-color: ${selected ? '#189fe366' : 'transparent'};
   `}
-  display: block;
-  margin-top: 8px;
+  display: grid;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  vertical-align: middle;
 `;

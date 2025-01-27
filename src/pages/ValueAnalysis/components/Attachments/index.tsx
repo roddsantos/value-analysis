@@ -2,19 +2,41 @@ import { SectionTitle } from 'components/SectionTitle';
 import * as S from './styles';
 import { Button } from 'components/Button';
 import { useState } from 'react';
+import { errorSnack, warningSnack } from 'utils/data';
+import { CustomDialogProps } from 'components/CustomSnackbar';
 
-export const Attachments = () => {
+type AttachmentsTypes = {
+  setSnack: React.Dispatch<React.SetStateAction<CustomDialogProps>>;
+};
+
+export const Attachments = ({ setSnack }: AttachmentsTypes) => {
   const [files, setFiles] = useState<File[]>([]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const filesEvent = event.target.files;
+    let isWrongExtension = false;
     const filesArr: File[] = [...files];
     if (filesEvent) {
-      for (let i = 0; i < filesEvent.length; i++) filesArr.push(filesEvent[i]);
+      for (let i = 0; i < filesEvent.length; i++) {
+        const wrongExtension = !(
+          filesEvent[i].type.includes('excel') ||
+          filesEvent[i].type.includes('csv') ||
+          filesEvent[i].type.includes('spreadsheetml') ||
+          filesEvent[i].type.includes('xls') ||
+          filesEvent[i].type.includes('xlsx') ||
+          filesEvent[i].type.includes('pdf')
+        );
+        isWrongExtension = isWrongExtension || wrongExtension;
+        if (!wrongExtension) filesArr.push(filesEvent[i]);
+      }
     }
     const totalFileSize = filesArr.reduce((prev, curr) => prev + curr.size, 0);
+    if (isWrongExtension)
+      setSnack(
+        warningSnack('Um ou mais arquivos selecionados tem extensão inválida!')
+      );
     if (totalFileSize > 5 * 1024 * 1024)
-      console.log('Files exceed size (5 MB)');
+      setSnack(errorSnack('Tamanho dos arquivos combinados excede 5MB!'));
     else setFiles(filesArr);
   };
 
@@ -59,6 +81,7 @@ export const Attachments = () => {
               type="file"
               onChange={(event) => handleFileChange(event)}
               multiple
+              accept=".xlsx, .xls, .csv, .pdf"
             ></S.StyledInputFile>
           </Button>
           <Button types="third" title="Upload" />

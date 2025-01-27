@@ -38,6 +38,19 @@ export const successSnack = (message: string): CustomDialogProps => {
 };
 
 /**
+ * function to set params to a snackbar with warning variant
+ * @param message text to be displayed in snackbar
+ * @returns a CustomDialogProps object
+ */
+export const warningSnack = (message: string): CustomDialogProps => {
+  return {
+    isOpen: true,
+    message,
+    variant: 'warning',
+  };
+};
+
+/**
  * function to set params to a snackbar with error variant
  * @param message text to be displayed in snackbar
  * @returns a CustomDialogProps object
