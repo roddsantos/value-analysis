@@ -1,8 +1,13 @@
 import { CustomRoutes } from 'routes';
 import './App.css';
+import { UserProvider } from 'contexts/user';
 
 function App() {
-  return <CustomRoutes />;
+  return (
+    <UserProvider>
+      <CustomRoutes />
+    </UserProvider>
+  );
 }
 
 export default App;
