@@ -45,6 +45,36 @@ export const CustomSnackbar = ({
     }
   };
 
+  const background = () => {
+    switch (variant) {
+      case 'success':
+        return '#e8f7f0';
+      case 'error':
+        return '#f7e8e8';
+      case 'warning':
+        return '#f7f3e8';
+      case 'info':
+        return '#e8e8f7';
+      default:
+        return '#cfcfcf';
+    }
+  };
+
+  const accent = () => {
+    switch (variant) {
+      case 'success':
+        return '#53a77f';
+      case 'error':
+        return '#a75353';
+      case 'warning':
+        return '#a79353';
+      case 'info':
+        return '#535ba7';
+      default:
+        return '#474747';
+    }
+  };
+
   return (
     <S.StyledSnackbar
       open={open}
@@ -55,7 +85,7 @@ export const CustomSnackbar = ({
       onClose={handleCloseSnack}
       autoHideDuration={4000}
     >
-      <S.SnackbarContainer variant={variant}>
+      <S.SnackbarContainer background={background()} accent={accent()}>
         <i className={returnIconClass()}></i>
         <p>{message}</p>
         <i

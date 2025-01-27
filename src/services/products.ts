@@ -8,7 +8,12 @@ export const useProductsServices = () => {
     return PRODUCTS_API.get<ProductsType[]>('');
   };
 
+  const updateProducts = (products: ProductsType[]) => {
+    return PRODUCTS_API.patch<ProductsType[]>('/batch', products);
+  };
+
   return {
     productsList,
+    updateProducts,
   };
 };

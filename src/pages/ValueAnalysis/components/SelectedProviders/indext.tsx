@@ -16,6 +16,14 @@ type ProductsTableType = {
 };
 
 export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
+  const handleClickProviderHeader = (field: keyof ProductsType) => {
+    const dataAux = [...data];
+    for (let i = 0; i < dataAux.length; i++) {
+      if (Boolean(dataAux[i][field])) dataAux[i].selectedProvider = field;
+    }
+    setData(dataAux);
+  };
+
   const columns: GridColDef[] = [
     {
       field: 'code',
@@ -72,7 +80,11 @@ export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
       editable: true,
       align: 'left',
       headerAlign: 'left',
-      renderHeader: () => <S.CustomHeader>Fornecedor 1</S.CustomHeader>,
+      renderHeader: () => (
+        <S.CustomHeader onClick={() => handleClickProviderHeader('provider1')}>
+          Fornecedor 1
+        </S.CustomHeader>
+      ),
       renderCell: (data) => (
         <S.CustomRow selected={data.row['selectedProvider'] === 'provider1'}>
           {data.value ? 'R$ ' + data.value : ''}
@@ -88,7 +100,11 @@ export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
       editable: true,
       align: 'left',
       headerAlign: 'left',
-      renderHeader: () => <S.CustomHeader>Fornecedor 2</S.CustomHeader>,
+      renderHeader: () => (
+        <S.CustomHeader onClick={() => handleClickProviderHeader('provider2')}>
+          Fornecedor 2
+        </S.CustomHeader>
+      ),
       renderCell: (data) => (
         <S.CustomRow selected={data.row['selectedProvider'] === 'provider2'}>
           {data.value ? 'R$ ' + data.value : ''}
@@ -104,7 +120,11 @@ export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
       editable: true,
       align: 'left',
       headerAlign: 'left',
-      renderHeader: () => <S.CustomHeader>Fornecedor 3</S.CustomHeader>,
+      renderHeader: () => (
+        <S.CustomHeader onClick={() => handleClickProviderHeader('provider3')}>
+          Fornecedor 3
+        </S.CustomHeader>
+      ),
       renderCell: (data) => (
         <S.CustomRow selected={data.row['selectedProvider'] === 'provider3'}>
           {data.value ? 'R$ ' + data.value : ''}
@@ -120,7 +140,14 @@ export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
       editable: true,
       align: 'left',
       headerAlign: 'left',
-      renderHeader: () => <S.CustomHeader right>Fornecedor 4</S.CustomHeader>,
+      renderHeader: () => (
+        <S.CustomHeader
+          onClick={() => handleClickProviderHeader('provider4')}
+          right
+        >
+          Fornecedor 4
+        </S.CustomHeader>
+      ),
       renderCell: (data) => (
         <S.CustomRow selected={data.row['selectedProvider'] === 'provider4'}>
           {data.value ? 'R$ ' + data.value : ''}
@@ -151,7 +178,10 @@ export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
     const index = auxData.findIndex(
       (product) => product.id === row.id && (product[field] as number) > 0
     );
-    if (index >= 0) auxData[index].selectedProvider = row.colDef.field;
+    if (index >= 0)
+      auxData[index].selectedProvider = auxData[index].selectedProvider
+        ? null
+        : row.colDef.field;
     setData(auxData);
   };
 
@@ -171,7 +201,6 @@ export const SelectedProviders = ({ data, setData }: ProductsTableType) => {
         )}
         columns={columns}
         processRowUpdate={processRowUpdate}
-        onCellEditStop={(data) => console.log('DATA: ', data)}
         onCellClick={(data) => handleProviderSelect(data)}
       />
     </section>

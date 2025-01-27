@@ -8,15 +8,15 @@ import { Attachments } from './components/Attachments';
 import { SelectedProviders } from './components/SelectedProviders/indext';
 import { OrderType, ProductsType } from 'types/services';
 import { useEffect, useState } from 'react';
-import { CustomDialog } from 'components/CustomDialog';
 import { RejectOrderDialog } from './components/RejectOrderDialog';
 import { CustomDialogProps, CustomSnackbar } from 'components/CustomSnackbar';
 import { useProductsServices } from 'services/products';
 import { closeSnack, decrescent, errorSnack, successSnack } from 'utils/data';
 import { useOrdersServices } from 'services/orders';
+import { OrderDialog } from './components/OrderDialog';
 
 export const ValueAnalysisPage = () => {
-  const { productsList } = useProductsServices();
+  const { productsList, updateProducts } = useProductsServices();
   const { createOrder } = useOrdersServices();
 
   const [data, setData] = useState<ProductsType[]>([]);
@@ -42,6 +42,15 @@ export const ValueAnalysisPage = () => {
 
   const handleApprove = async () => {
     try {
+      await updateProducts(
+        data.filter(
+          (product) =>
+            product.provider1 ||
+            product.provider2 ||
+            product.provider3 ||
+            product.provider4
+        )
+      );
       await createOrder({
         code: code.trim(),
         description: description.trim(),
@@ -93,7 +102,7 @@ export const ValueAnalysisPage = () => {
       <S.StyledTitle>Análise de Valores</S.StyledTitle>
       <DataInfo {...dataInfoProps} />
       <ProductsTable data={data} setData={setData} />
-      <Attachments />
+      <Attachments setSnack={setSnack} />
       <SelectedProviders data={data} setData={setData} />
       <S.StyledDivisor />
       <S.ButtonsContainer>
@@ -106,33 +115,12 @@ export const ValueAnalysisPage = () => {
         />
       </S.ButtonsContainer>
       {open && (
-        <CustomDialog
-          onClose={() => setOpen(false)}
-          maxWidth="xl"
+        <OrderDialog
           open={open}
-          title="Enviar cotação"
-        >
-          <S.StyledDialogText>
-            Deseja enviar agora como pedido para o Protheus?
-          </S.StyledDialogText>
-          <S.DialogButtonsContainer>
-            <Button
-              types="secondary"
-              title="Retornar a edição"
-              onClick={() => setOpen(false)}
-            />
-            <Button
-              types="third"
-              title="Reprovar"
-              onClick={() => handleReject()}
-            />
-            <Button
-              types="primary"
-              title="Aprovar"
-              onClick={() => handleApprove()}
-            />
-          </S.DialogButtonsContainer>
-        </CustomDialog>
+          setOpen={setOpen}
+          handleApprove={() => handleApprove()}
+          handleReject={() => handleReject()}
+        />
       )}
       {snack.isOpen && (
         <CustomSnackbar {...snack} onClose={() => setSnack(closeSnack())} />
